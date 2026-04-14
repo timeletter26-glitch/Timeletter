@@ -445,6 +445,7 @@
             <span class="main"><i class="fas fa-pen-fancy"></i> 写一封新信</span>
             <span class="sub">Write a new letter</span>
         </div>
+        <!-- 已添加 name 属性，确保 Formspree 能接收 -->
         <form id="letterForm" action="https://formspree.io/f/xojyqoaz" method="POST">
             <div class="row-2col">
                 <div class="input-group">
@@ -452,14 +453,14 @@
                         <span class="label-zh">署名 / 笔名</span>
                         <span class="label-en">Name / Pen name</span>
                     </label>
-                    <input type="text" id="name" placeholder="例: 微风旅人 / Wanderer" maxlength="50" autocomplete="off">
+                    <input type="text" id="name" name="name" placeholder="例: 微风旅人 / Wanderer" maxlength="50" autocomplete="off">
                 </div>
                 <div class="input-group">
                     <label>
                         <span class="label-zh">标题 <span style="color:#bc7f4a;">*</span></span>
                         <span class="label-en">Title *</span>
                     </label>
-                    <input type="text" id="title" placeholder="信的标题 / Letter title" maxlength="100" required>
+                    <input type="text" id="title" name="title" placeholder="信的标题 / Letter title" maxlength="100" required>
                 </div>
             </div>
             <div class="input-group">
@@ -467,7 +468,7 @@
                     <span class="label-zh">信的内容 <span style="color:#bc7f4a;">*</span></span>
                     <span class="label-en">Content *</span>
                 </label>
-                <textarea id="content" placeholder="写点什么吧… 心事、祝福、英文故事都可以 / Write your thoughts, stories, or blessings..." maxlength="5000" required></textarea>
+                <textarea id="content" name="content" placeholder="写点什么吧… 心事、祝福、英文故事都可以 / Write your thoughts, stories, or blessings..." maxlength="5000" required></textarea>
             </div>
             <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; flex-wrap: wrap;">
                 <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> 寄出信件 / Send</button>
@@ -727,9 +728,10 @@
         }, 3000);
     }
 
-    // 提交表单
+    // 提交表单 - 同时保存到 localStorage 和 Formspree (修复版)
     async function handleSubmit(e) {
         e.preventDefault();
+        
         const nameInput = document.getElementById('name').value;
         const titleInput = document.getElementById('title').value;
         const contentInput = document.getElementById('content').value;
@@ -737,15 +739,42 @@
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> 寄送中 / Sending...';
         
-        // 模拟异步存储 (微任务)
-        setTimeout(() => {
-            const success = addNewLetter(nameInput, titleInput, contentInput);
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 寄出信件 / Send';
-            if (!success) {
-                // 错误消息已经显示
+        // 1. 先保存到 localStorage (前端显示)
+        const success = addNewLetter(nameInput, titleInput, contentInput);
+        
+        // 2. 如果保存成功，再异步发送到 Formspree
+        if (success) {
+            try {
+                const formspreeUrl = document.getElementById('letterForm').getAttribute('action');
+                if (formspreeUrl && formspreeUrl.includes('formspree.io')) {
+                    // 构造 FormData 对象，字段名必须和 name 属性一致
+                    const formData = new FormData();
+                    formData.append('name', nameInput.trim() || '匿名旅人');
+                    formData.append('title', titleInput.trim());
+                    formData.append('content', contentInput.trim());
+                    
+                    const response = await fetch(formspreeUrl, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
+                    if (response.ok) {
+                        console.log('已同步发送到 Formspree');
+                    } else {
+                        console.warn('Formspree 响应错误', response.status);
+                    }
+                } else {
+                    console.warn('未找到有效的 Formspree action');
+                }
+            } catch (err) {
+                console.error('发送到 Formspree 失败:', err);
+                // 不影响前端体验，只记录错误
             }
-        }, 50);
+        }
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 寄出信件 / Send';
     }
 
     // 初始化: 加载存储并渲染

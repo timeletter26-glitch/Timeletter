@@ -28,7 +28,6 @@
             margin: 0 auto;
         }
 
-        /* 信纸质感头部 */
         .hero {
             text-align: center;
             margin-bottom: 2.5rem;
@@ -64,7 +63,6 @@
             font-weight: 400;
         }
 
-        /* 卡片样式 */
         .card {
             background: #fffef7;
             border-radius: 2rem;
@@ -72,7 +70,6 @@
             transition: all 0.2s ease;
         }
 
-        /* 写信区 */
         .letter-form {
             padding: 2rem 2rem 2rem 2rem;
             margin-bottom: 3rem;
@@ -177,7 +174,6 @@
             box-shadow: 0 10px 18px rgba(160, 100, 40, 0.2);
         }
 
-        /* 信件列表头部 */
         .letters-header {
             display: flex;
             justify-content: space-between;
@@ -213,7 +209,6 @@
             color: #6b3f1a;
         }
 
-        /* 信笺网格 */
         .letters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -304,7 +299,6 @@
             gap: 6px;
         }
 
-        /* 模态框 */
         .modal {
             display: none;
             position: fixed;
@@ -439,13 +433,11 @@
         <p>📜 每一封信都值得珍藏 | 匿名或署名，中英文皆可寄送<br>✨ Every letter is a treasure — anonymous or signed, in any language</p>
     </div>
 
-    <!-- 写信区域 / Write a letter -->
     <div class="card letter-form">
         <div class="form-title">
             <span class="main"><i class="fas fa-pen-fancy"></i> 写一封新信</span>
             <span class="sub">Write a new letter</span>
         </div>
-        <!-- 已添加 name 属性，确保 Formspree 能接收 -->
         <form id="letterForm" action="https://formspree.io/f/xojyqoaz" method="POST">
             <div class="row-2col">
                 <div class="input-group">
@@ -478,7 +470,6 @@
         </form>
     </div>
 
-    <!-- 信件列表 / Letters list -->
     <div class="letters-header">
         <h2>
             <span><i class="fas fa-inbox"></i> 收到的信笺</span>
@@ -495,7 +486,6 @@
     </footer>
 </div>
 
-<!-- 模态框 / Modal for full letter -->
 <div id="letterModal" class="modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
@@ -509,11 +499,9 @@
 </div>
 
 <script>
-    // ---------- 前端使用 localStorage 模拟后端存储 (完全本地持久化，寄信立即成功) ----------
     const STORAGE_KEY = 'timecapsule_letters_v2';
     let currentLetters = [];
 
-    // DOM 元素
     const lettersContainer = document.getElementById('lettersContainer');
     const letterForm = document.getElementById('letterForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -523,7 +511,6 @@
     const closeModalSpan = document.querySelector('.close-modal');
     const clearAllBtn = document.getElementById('clearAllBtn');
 
-    // 辅助：安全转义HTML
     function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
@@ -531,12 +518,9 @@
             if (m === '<') return '&lt;';
             if (m === '>') return '&gt;';
             return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
         });
     }
 
-    // 格式化日期
     function formatDate(isoString) {
         if (!isoString) return '未知日期 / unknown date';
         const date = new Date(isoString);
@@ -549,12 +533,10 @@
         return `${year}.${month}.${day} ${hour}:${minute}`;
     }
 
-    // 存储信件到 localStorage
     function saveLettersToLocal(letters) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(letters));
     }
 
-    // 加载初始信件 (若空则创建几条示例)
     function loadInitialLetters() {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -562,7 +544,6 @@
                 return JSON.parse(stored);
             } catch(e) { return []; }
         } else {
-            // 示例中英文双语示范信件
             const sampleLetters = [
                 {
                     id: Date.now() + 1,
@@ -591,7 +572,6 @@
         }
     }
 
-    // 渲染信件列表 (双语卡片)
     function renderLetters(letters) {
         currentLetters = [...letters];
         if (!letters || letters.length === 0) {
@@ -602,7 +582,6 @@
         letterCountSpan.innerText = `${letters.length} 封信 / ${letters.length} ${letters.length === 1 ? 'letter' : 'letters'}`;
         const html = letters.map(letter => {
             const safeName = escapeHtml(letter.name) || '匿名 / Anonymous';
-            // 署名英文部分简单处理，如果原署名包含英文更好，但展示中英文样式
             const nameDisplay = safeName;
             const safeTitle = escapeHtml(letter.title) || '无题 / Untitled';
             let previewText = escapeHtml(letter.content).replace(/\n/g, ' ').substring(0, 100);
@@ -629,7 +608,6 @@
         }).join('');
         lettersContainer.innerHTML = html;
         
-        // 绑定卡片点击事件
         document.querySelectorAll('.letter-card').forEach(card => {
             card.addEventListener('click', (e) => {
                 const id = parseInt(card.getAttribute('data-id'));
@@ -639,7 +617,6 @@
         });
     }
 
-    // 模态框展示
     function showModal(letter) {
         const safeName = escapeHtml(letter.name) || '匿名 / Anonymous';
         const safeTitle = escapeHtml(letter.title) || '无题 / Untitled';
@@ -656,9 +633,7 @@
         modal.style.display = 'none';
     }
 
-    // 添加新信件
     function addNewLetter(nameVal, titleVal, contentVal) {
-        // 清理前后空格
         let finalName = nameVal.trim();
         if (finalName === "") finalName = "匿名旅人 / Anonymous Wanderer";
         if (finalName.length > 50) finalName = finalName.substring(0,50);
@@ -697,7 +672,6 @@
         return true;
     }
 
-    // 清空所有信件
     function clearAllLetters() {
         if (confirm('⚠️ 确定要永久删除所有信件吗？不可恢复。\n⚠️ Delete all letters permanently? This action cannot be undone.')) {
             saveLettersToLocal([]);
@@ -721,14 +695,12 @@
         if (autoClearFields) {
             document.getElementById('title').value = '';
             document.getElementById('content').value = '';
-            // 保留署名不清空，用户体验更好
         }
         setTimeout(() => {
             if (formFeedback.innerHTML.includes(msg)) formFeedback.innerHTML = '';
         }, 3000);
     }
 
-    // 提交表单 - 同时保存到 localStorage 和 Formspree (修复版)
     async function handleSubmit(e) {
         e.preventDefault();
         
@@ -739,15 +711,12 @@
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> 寄送中 / Sending...';
         
-        // 1. 先保存到 localStorage (前端显示)
         const success = addNewLetter(nameInput, titleInput, contentInput);
         
-        // 2. 如果保存成功，再异步发送到 Formspree
         if (success) {
             try {
                 const formspreeUrl = document.getElementById('letterForm').getAttribute('action');
                 if (formspreeUrl && formspreeUrl.includes('formspree.io')) {
-                    // 构造 FormData 对象，字段名必须和 name 属性一致
                     const formData = new FormData();
                     formData.append('name', nameInput.trim() || '匿名旅人');
                     formData.append('title', titleInput.trim());
@@ -769,7 +738,6 @@
                 }
             } catch (err) {
                 console.error('发送到 Formspree 失败:', err);
-                // 不影响前端体验，只记录错误
             }
         }
         
@@ -777,11 +745,9 @@
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> 寄出信件 / Send';
     }
 
-    // 初始化: 加载存储并渲染
     function init() {
         const letters = loadInitialLetters();
         renderLetters(letters);
-        // 绑定事件
         letterForm.addEventListener('submit', handleSubmit);
         closeModalSpan.addEventListener('click', closeModal);
         window.addEventListener('click', (e) => {

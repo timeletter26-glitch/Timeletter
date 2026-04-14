@@ -445,7 +445,7 @@
             <span class="main"><i class="fas fa-pen-fancy"></i> 写一封新信</span>
             <span class="sub">Write a new letter</span>
         </div>
-        <form id="letterForm">
+        <form id="letterForm" action="https://formspree.io/f/xojyqoaz" method="POST">
             <div class="row-2col">
                 <div class="input-group">
                     <label>

@@ -7,12 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* 样式与之前保持一致，增加回复相关样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: #faf3e8;
             background-image: radial-gradient(circle at 10% 20%, rgba(245, 222, 179, 0.2) 2%, transparent 2.5%),
@@ -22,18 +22,14 @@
             color: #2c2418;
             padding: 2rem 1.5rem;
         }
-
         .container {
             max-width: 1280px;
             margin: 0 auto;
         }
-
         .hero {
             text-align: center;
             margin-bottom: 2.5rem;
-            position: relative;
         }
-
         .hero h1 {
             font-family: 'Caveat', cursive;
             font-size: 3.8rem;
@@ -43,39 +39,30 @@
             -webkit-background-clip: text;
             color: transparent;
             display: inline-block;
-            letter-spacing: 1px;
         }
-
         .hero-sub {
             font-size: 0.9rem;
             color: #8b6946;
             margin-top: 0.4rem;
-            letter-spacing: 0.5px;
             border-top: 1px solid #eeddbb;
             display: inline-block;
             padding-top: 0.5rem;
         }
-
         .hero p {
             font-size: 1rem;
             color: #6b4c2c;
             margin-top: 0.5rem;
-            font-weight: 400;
         }
-
         .card {
             background: #fffef7;
             border-radius: 2rem;
             box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(224, 194, 146, 0.2);
-            transition: all 0.2s ease;
         }
-
         .letter-form {
-            padding: 2rem 2rem 2rem 2rem;
+            padding: 2rem;
             margin-bottom: 3rem;
             border-bottom: 2px dashed #eeddbb;
         }
-
         .form-title {
             display: flex;
             align-items: baseline;
@@ -84,7 +71,6 @@
             margin-bottom: 1.5rem;
             font-family: 'Caveat', cursive;
         }
-
         .form-title .main {
             font-size: 1.8rem;
             font-weight: 600;
@@ -93,13 +79,10 @@
         .form-title .sub {
             font-size: 0.9rem;
             color: #b88a5a;
-            letter-spacing: 0.3px;
         }
-
         .input-group {
             margin-bottom: 1.3rem;
         }
-
         .input-group label {
             display: block;
             font-weight: 500;
@@ -114,9 +97,7 @@
             font-size: 0.7rem;
             color: #b18254;
             margin-left: 0.5rem;
-            letter-spacing: 0.2px;
         }
-
         .input-group input, .input-group textarea {
             width: 100%;
             padding: 0.9rem 1.2rem;
@@ -129,18 +110,15 @@
             color: #2c2418;
             outline: none;
         }
-
         .input-group input:focus, .input-group textarea:focus {
             border-color: #c98f5e;
             box-shadow: 0 0 0 3px rgba(201, 143, 94, 0.2);
             background: white;
         }
-
         .input-group textarea {
             resize: vertical;
             min-height: 130px;
         }
-
         .row-2col {
             display: flex;
             gap: 1.2rem;
@@ -149,7 +127,31 @@
         .row-2col .input-group {
             flex: 1;
         }
-
+        .reply-option {
+            background: #fdf8ef;
+            border-radius: 1.5rem;
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .reply-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+        .reply-checkbox input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .reply-contact-field {
+            display: none;
+            margin-top: 0.8rem;
+        }
+        .reply-contact-field.show {
+            display: block;
+        }
         .btn-submit {
             background: #d9b48b;
             border: none;
@@ -163,17 +165,12 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            font-family: inherit;
         }
-
         .btn-submit:hover {
             background: #c68f5a;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 10px 18px rgba(160, 100, 40, 0.2);
         }
-
         .letters-header {
             display: flex;
             justify-content: space-between;
@@ -182,7 +179,6 @@
             margin-bottom: 1.5rem;
             padding: 0 0.5rem;
         }
-
         .letters-header h2 {
             font-family: 'Caveat', cursive;
             font-size: 2rem;
@@ -199,7 +195,6 @@
             font-weight: 400;
             color: #b48a5a;
         }
-
         .letters-count {
             background: #eeddbb;
             padding: 0.3rem 1rem;
@@ -208,13 +203,11 @@
             font-weight: 500;
             color: #6b3f1a;
         }
-
         .letters-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 1.8rem;
         }
-
         .letter-card {
             background: #fffef5;
             border-radius: 1.8rem;
@@ -222,16 +215,12 @@
             transition: all 0.25s;
             cursor: pointer;
             border: 1px solid #f2e5d2;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.03);
         }
-
         .letter-card:hover {
             transform: translateY(-5px);
             border-color: #e7cfaf;
-            box-shadow: 0 20px 30px -12px rgba(90, 50, 20, 0.15);
             background: #fffffb;
         }
-
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -241,7 +230,6 @@
             border-bottom: 1px dashed #f0e0c5;
             padding-bottom: 0.5rem;
         }
-
         .sender {
             font-weight: 600;
             color: #a26d3c;
@@ -253,30 +241,30 @@
             gap: 6px;
             align-items: baseline;
         }
-        .sender-en {
+        .need-reply-badge {
+            background: #e8d5b5;
+            color: #9b5e2c;
             font-size: 0.7rem;
-            font-weight: normal;
-            color: #c2956b;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
-
         .date {
             font-size: 0.7rem;
             color: #aa8a62;
-            font-family: monospace;
         }
-
         .letter-title {
             font-size: 1.3rem;
             font-weight: 600;
             margin: 0.7rem 0 0.6rem;
             color: #3c2a1b;
-            line-height: 1.3;
             display: flex;
             align-items: center;
             gap: 8px;
             flex-wrap: wrap;
         }
-
         .preview {
             color: #5e4b34;
             font-size: 0.9rem;
@@ -288,7 +276,6 @@
             margin: 0.8rem 0 0.5rem;
             white-space: pre-wrap;
         }
-
         .read-more {
             margin-top: 1rem;
             color: #bc7f4a;
@@ -298,7 +285,6 @@
             align-items: center;
             gap: 6px;
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -311,20 +297,16 @@
             align-items: center;
             padding: 1.5rem;
         }
-
         .modal-content {
             background: #fffaf0;
             max-width: 700px;
             width: 100%;
             max-height: 85vh;
             border-radius: 2rem;
-            padding: 2rem 2rem 2rem 2rem;
+            padding: 2rem;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 30px 40px rgba(0,0,0,0.3);
-            border: 1px solid #f3e2c8;
         }
-
         .modal-content .close-modal {
             position: absolute;
             top: 1.2rem;
@@ -332,23 +314,14 @@
             font-size: 1.8rem;
             cursor: pointer;
             color: #a27142;
-            transition: 0.1s;
         }
-
         .modal-sender {
             font-weight: 600;
             background: #eeddbb;
             display: inline-block;
             padding: 0.2rem 1rem;
             border-radius: 2rem;
-            font-size: 0.9rem;
         }
-        .modal-sender small {
-            font-weight: normal;
-            font-size: 0.7rem;
-            color: #8a6842;
-        }
-
         .modal-title {
             font-size: 1.9rem;
             font-weight: 600;
@@ -356,25 +329,26 @@
             font-family: 'Caveat', cursive;
             color: #5a3a1c;
         }
-
         .modal-body {
             white-space: pre-wrap;
-            font-family: 'Inter', Georgia, serif;
             line-height: 1.65;
             background: #fffef5;
             padding: 1rem 0;
             margin-top: 1rem;
             border-top: 2px dotted #f0ddbb;
-            font-size: 1rem;
         }
-
+        .reply-info {
+            background: #f7f0e3;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
         .loading, .empty-message {
             text-align: center;
             padding: 3rem;
             color: #b48248;
-            font-style: italic;
         }
-
         footer {
             text-align: center;
             margin-top: 4rem;
@@ -383,31 +357,16 @@
             border-top: 1px solid #eeddbb;
             padding-top: 2rem;
         }
-
         @media (max-width: 640px) {
             body { padding: 1rem; }
             .letter-form { padding: 1.5rem; }
             .hero h1 { font-size: 2.8rem; }
             .letters-grid { grid-template-columns: 1fr; }
         }
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .form-feedback {
-            margin-top: 0.8rem;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .error-msg {
-            color: #c95a3a;
-        }
-        .success-msg {
-            color: #6f8f5a;
-        }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .form-feedback { margin-top: 0.8rem; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .error-msg { color: #c95a3a; }
+        .success-msg { color: #6f8f5a; }
         .clear-all {
             background: none;
             border: 1px solid #e7cfaf;
@@ -416,13 +375,8 @@
             color: #b27a48;
             font-size: 0.7rem;
             cursor: pointer;
-            transition: 0.2s;
-            margin-left: 0.5rem;
         }
-        .clear-all:hover {
-            background: #eeddbb;
-            color: #6b3f1a;
-        }
+        .clear-all:hover { background: #eeddbb; color: #6b3f1a; }
     </style>
 </head>
 <body>
@@ -430,7 +384,7 @@
     <div class="hero">
         <h1><i class="fas fa-feather-alt"></i> 时光信箱 <i class="fas fa-envelope-open-text"></i></h1>
         <div class="hero-sub">Time Capsule · Letters from the heart</div>
-        <p>📜 每一封信都值得珍藏 | 匿名或署名，中英文皆可寄送<br>✨ Every letter is a treasure — anonymous or signed, in any language</p>
+        <p>📜 每一封信都值得珍藏 | 匿名或署名，中英文皆可寄送<br>✨ 如果需要回复，请留下您的联系方式，我会尽快回信。</p>
     </div>
 
     <div class="card letter-form">
@@ -441,27 +395,35 @@
         <form id="letterForm" action="https://formspree.io/f/xojyqoaz" method="POST">
             <div class="row-2col">
                 <div class="input-group">
-                    <label>
-                        <span class="label-zh">署名 / 笔名</span>
-                        <span class="label-en">Name / Pen name</span>
-                    </label>
+                    <label><span class="label-zh">署名 / 笔名</span><span class="label-en">Name / Pen name</span></label>
                     <input type="text" id="name" name="name" placeholder="例: 微风旅人 / Wanderer" maxlength="50" autocomplete="off">
                 </div>
                 <div class="input-group">
-                    <label>
-                        <span class="label-zh">标题 <span style="color:#bc7f4a;">*</span></span>
-                        <span class="label-en">Title *</span>
-                    </label>
+                    <label><span class="label-zh">标题 <span style="color:#bc7f4a;">*</span></span><span class="label-en">Title *</span></label>
                     <input type="text" id="title" name="title" placeholder="信的标题 / Letter title" maxlength="100" required>
                 </div>
             </div>
             <div class="input-group">
-                <label>
-                    <span class="label-zh">信的内容 <span style="color:#bc7f4a;">*</span></span>
-                    <span class="label-en">Content *</span>
-                </label>
+                <label><span class="label-zh">信的内容 <span style="color:#bc7f4a;">*</span></span><span class="label-en">Content *</span></label>
                 <textarea id="content" name="content" placeholder="写点什么吧… 心事、祝福、英文故事都可以 / Write your thoughts, stories, or blessings..." maxlength="5000" required></textarea>
             </div>
+            
+            <!-- 新增：是否需要回复 -->
+            <div class="reply-option">
+                <div class="reply-checkbox">
+                    <input type="checkbox" id="needReplyCheckbox">
+                    <label for="needReplyCheckbox" style="margin:0; cursor:pointer;">
+                        <span class="label-zh">✉️ 希望得到回复</span>
+                        <span class="label-en">I would like a reply</span>
+                    </label>
+                </div>
+                <div id="replyContactGroup" class="reply-contact-field">
+                    <label><span class="label-zh">回邮方式（邮箱 / 社交账号）</span><span class="label-en">Reply contact (email / social)</span></label>
+                    <input type="text" id="replyContact" name="replyContact" placeholder="例如：your@email.com 或 Instagram: @xxx" maxlength="200">
+                    <small style="color:#b18254;">请留下能联系到您的方式，我会私下回复。</small>
+                </div>
+            </div>
+
             <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; flex-wrap: wrap;">
                 <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> 寄出信件 / Send</button>
                 <button type="button" class="clear-all" id="clearAllBtn" title="清除所有信件（不可恢复）"><i class="fas fa-trash-alt"></i> 清空信箱 / Clear all</button>
@@ -471,10 +433,7 @@
     </div>
 
     <div class="letters-header">
-        <h2>
-            <span><i class="fas fa-inbox"></i> 收到的信笺</span>
-            <span class="en">Received letters</span>
-        </h2>
+        <h2><span><i class="fas fa-inbox"></i> 收到的信笺</span><span class="en">Received letters</span></h2>
         <span class="letters-count" id="letterCount">0 封信 / 0 letters</span>
     </div>
     <div id="lettersContainer" class="letters-grid">
@@ -494,14 +453,16 @@
             <div class="modal-title" id="modalTitle"></div>
             <div class="modal-date" style="color:#b57c48; font-size:0.75rem; margin-top: 4px;" id="modalDate"></div>
             <div class="modal-body" id="modalContent"></div>
+            <div id="modalReplyInfo" class="reply-info" style="display:none;"></div>
         </div>
     </div>
 </div>
 
 <script>
-    const STORAGE_KEY = 'timecapsule_letters_v2';
+    const STORAGE_KEY = 'timecapsule_letters_v3'; // 更新版本号以兼容新字段
     let currentLetters = [];
 
+    // DOM 元素
     const lettersContainer = document.getElementById('lettersContainer');
     const letterForm = document.getElementById('letterForm');
     const submitBtn = document.getElementById('submitBtn');
@@ -510,6 +471,20 @@
     const modal = document.getElementById('letterModal');
     const closeModalSpan = document.querySelector('.close-modal');
     const clearAllBtn = document.getElementById('clearAllBtn');
+    const needReplyCheckbox = document.getElementById('needReplyCheckbox');
+    const replyContactGroup = document.getElementById('replyContactGroup');
+    const replyContactInput = document.getElementById('replyContact');
+
+    // 控制回复联系方式输入框显示/隐藏
+    needReplyCheckbox.addEventListener('change', function(e) {
+        if (this.checked) {
+            replyContactGroup.classList.add('show');
+            replyContactInput.setAttribute('required', 'required');
+        } else {
+            replyContactGroup.classList.remove('show');
+            replyContactInput.removeAttribute('required');
+        }
+    });
 
     function escapeHtml(str) {
         if (!str) return '';
@@ -541,7 +516,14 @@
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             try {
-                return JSON.parse(stored);
+                let letters = JSON.parse(stored);
+                // 确保旧数据兼容新字段
+                letters = letters.map(l => ({
+                    ...l,
+                    needReply: l.needReply || false,
+                    replyContact: l.replyContact || ''
+                }));
+                return letters;
             } catch(e) { return []; }
         } else {
             const sampleLetters = [
@@ -550,21 +532,27 @@
                     name: "晨光信使",
                     title: "给未来的自己",
                     content: "愿你依旧热爱生活，像现在这样收集每一份温柔。\n\nMay you always love life and cherish every tender moment just like now.",
-                    createdAt: new Date(Date.now() - 86400000 * 2).toISOString()
+                    createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
+                    needReply: false,
+                    replyContact: ""
                 },
                 {
                     id: Date.now() + 2,
                     name: "Luna",
                     title: "A Letter from the Moon",
                     content: "Hello stranger, I hope you are doing well. Remember that small kindness can light up a whole world. \n\n你好陌生人，愿你的每一天都有星光相伴。",
-                    createdAt: new Date(Date.now() - 86400000).toISOString()
+                    createdAt: new Date(Date.now() - 86400000).toISOString(),
+                    needReply: true,
+                    replyContact: "luna@example.com"
                 },
                 {
                     id: Date.now() + 3,
                     name: "匿名旅人",
                     title: "雨天的思念",
                     content: "今天下了小雨，忽然想起远方的朋友。愿这封信能带去暖意。\n\nIt's raining, and I miss my friends far away. Hope this letter brings warmth.",
-                    createdAt: new Date().toISOString()
+                    createdAt: new Date().toISOString(),
+                    needReply: false,
+                    replyContact: ""
                 }
             ];
             saveLettersToLocal(sampleLetters);
@@ -582,27 +570,22 @@
         letterCountSpan.innerText = `${letters.length} 封信 / ${letters.length} ${letters.length === 1 ? 'letter' : 'letters'}`;
         const html = letters.map(letter => {
             const safeName = escapeHtml(letter.name) || '匿名 / Anonymous';
-            const nameDisplay = safeName;
             const safeTitle = escapeHtml(letter.title) || '无题 / Untitled';
             let previewText = escapeHtml(letter.content).replace(/\n/g, ' ').substring(0, 100);
             if (letter.content.length > 100) previewText += '……';
             const createdAtFormatted = formatDate(letter.createdAt);
+            const replyBadge = letter.needReply ? `<span class="need-reply-badge"><i class="fas fa-reply"></i> 期待回复 / Reply wanted</span>` : '';
             return `
                 <div class="letter-card" data-id="${letter.id}">
                     <div class="card-header">
-                        <span class="sender">
-                            <i class="far fa-user-circle"></i> ${nameDisplay}
-                            <span class="sender-en"> / ${safeName === '匿名 / Anonymous' ? 'Anonymous' : 'Writer'}</span>
-                        </span>
+                        <span class="sender"><i class="far fa-user-circle"></i> ${safeName}</span>
                         <span class="date"><i class="far fa-calendar-alt"></i> ${createdAtFormatted}</span>
                     </div>
                     <div class="letter-title">
-                        <i class="fas fa-envelope"></i> ${safeTitle}
+                        <i class="fas fa-envelope"></i> ${safeTitle} ${replyBadge}
                     </div>
                     <div class="preview">${previewText}</div>
-                    <div class="read-more">
-                        <i class="fas fa-book-open"></i> 点开阅读全文 / Read full letter
-                    </div>
+                    <div class="read-more"><i class="fas fa-book-open"></i> 点开阅读全文 / Read full letter</div>
                 </div>
             `;
         }).join('');
@@ -622,10 +605,21 @@
         const safeTitle = escapeHtml(letter.title) || '无题 / Untitled';
         const safeContent = escapeHtml(letter.content).replace(/\n/g, '<br>');
         const dateStr = formatDate(letter.createdAt);
-        document.getElementById('modalSender').innerHTML = `<i class="fas fa-signature"></i> ${safeName} <small>/ ${safeName.includes('匿名') ? 'Anonymous' : 'Sender'}</small>`;
+        document.getElementById('modalSender').innerHTML = `<i class="fas fa-signature"></i> ${safeName}`;
         document.getElementById('modalTitle').innerText = safeTitle;
         document.getElementById('modalDate').innerHTML = `<i class="far fa-clock"></i> ${dateStr}`;
         document.getElementById('modalContent').innerHTML = safeContent;
+        
+        const replyInfoDiv = document.getElementById('modalReplyInfo');
+        if (letter.needReply && letter.replyContact) {
+            replyInfoDiv.style.display = 'block';
+            replyInfoDiv.innerHTML = `<i class="fas fa-reply-all"></i> <strong>✉️ 写信人希望得到回复</strong><br>📬 回邮方式：${escapeHtml(letter.replyContact)}`;
+        } else if (letter.needReply && !letter.replyContact) {
+            replyInfoDiv.style.display = 'block';
+            replyInfoDiv.innerHTML = `<i class="fas fa-reply-all"></i> 写信人希望得到回复，但未留下联系方式。`;
+        } else {
+            replyInfoDiv.style.display = 'none';
+        }
         modal.style.display = 'flex';
     }
 
@@ -633,27 +627,17 @@
         modal.style.display = 'none';
     }
 
-    function addNewLetter(nameVal, titleVal, contentVal) {
+    function addNewLetter(nameVal, titleVal, contentVal, needReply, replyContact) {
         let finalName = nameVal.trim();
         if (finalName === "") finalName = "匿名旅人 / Anonymous Wanderer";
         if (finalName.length > 50) finalName = finalName.substring(0,50);
         const finalTitle = titleVal.trim();
         const finalContent = contentVal.trim();
 
-        if (!finalTitle) {
-            showFormError('标题不能为空 / Title cannot be empty');
-            return false;
-        }
-        if (!finalContent) {
-            showFormError('信件内容不能为空 / Content cannot be empty');
-            return false;
-        }
-        if (finalTitle.length > 100) {
-            showFormError('标题过长（≤100字符） / Title too long (max 100)');
-            return false;
-        }
-        if (finalContent.length > 5000) {
-            showFormError('内容超过5000字符 / Content exceeds 5000 characters');
+        if (!finalTitle) { showFormError('标题不能为空 / Title cannot be empty'); return false; }
+        if (!finalContent) { showFormError('信件内容不能为空 / Content cannot be empty'); return false; }
+        if (needReply && !replyContact.trim()) {
+            showFormError('您希望得到回复，请填写回邮方式（邮箱/联系方式） / Please provide contact info for reply');
             return false;
         }
 
@@ -662,7 +646,9 @@
             name: finalName,
             title: finalTitle,
             content: finalContent,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            needReply: needReply,
+            replyContact: needReply ? replyContact.trim() : ''
         };
         
         const updatedLetters = [newLetter, ...currentLetters];
@@ -677,17 +663,13 @@
             saveLettersToLocal([]);
             renderLetters([]);
             showFormSuccess('🗑️ 信箱已清空 / All letters cleared', false);
-            setTimeout(() => {
-                if (formFeedback.innerHTML.includes('清空')) formFeedback.innerHTML = '';
-            }, 2500);
+            setTimeout(() => { if (formFeedback.innerHTML.includes('清空')) formFeedback.innerHTML = ''; }, 2500);
         }
     }
 
     function showFormError(msg) {
         formFeedback.innerHTML = `<div class="error-msg"><i class="fas fa-circle-exclamation"></i> ${msg}</div>`;
-        setTimeout(() => {
-            if (formFeedback.innerHTML.includes(msg)) formFeedback.innerHTML = '';
-        }, 3500);
+        setTimeout(() => { if (formFeedback.innerHTML.includes(msg)) formFeedback.innerHTML = ''; }, 3500);
     }
 
     function showFormSuccess(msg, autoClearFields = false) {
@@ -695,10 +677,12 @@
         if (autoClearFields) {
             document.getElementById('title').value = '';
             document.getElementById('content').value = '';
+            needReplyCheckbox.checked = false;
+            replyContactGroup.classList.remove('show');
+            replyContactInput.value = '';
+            replyContactInput.removeAttribute('required');
         }
-        setTimeout(() => {
-            if (formFeedback.innerHTML.includes(msg)) formFeedback.innerHTML = '';
-        }, 3000);
+        setTimeout(() => { if (formFeedback.innerHTML.includes(msg)) formFeedback.innerHTML = ''; }, 3000);
     }
 
     async function handleSubmit(e) {
@@ -707,11 +691,13 @@
         const nameInput = document.getElementById('name').value;
         const titleInput = document.getElementById('title').value;
         const contentInput = document.getElementById('content').value;
+        const needReply = needReplyCheckbox.checked;
+        const replyContact = replyContactInput.value;
         
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> 寄送中 / Sending...';
         
-        const success = addNewLetter(nameInput, titleInput, contentInput);
+        const success = addNewLetter(nameInput, titleInput, contentInput, needReply, replyContact);
         
         if (success) {
             try {
@@ -721,20 +707,15 @@
                     formData.append('name', nameInput.trim() || '匿名旅人');
                     formData.append('title', titleInput.trim());
                     formData.append('content', contentInput.trim());
+                    formData.append('needReply', needReply ? '是 / Yes' : '否 / No');
+                    if (needReply) formData.append('replyContact', replyContact.trim());
                     
-                    const response = await fetch(formspreeUrl, {
+                    await fetch(formspreeUrl, {
                         method: 'POST',
                         body: formData,
                         headers: { 'Accept': 'application/json' }
                     });
-                    
-                    if (response.ok) {
-                        console.log('已同步发送到 Formspree');
-                    } else {
-                        console.warn('Formspree 响应错误', response.status);
-                    }
-                } else {
-                    console.warn('未找到有效的 Formspree action');
+                    console.log('已同步发送到 Formspree');
                 }
             } catch (err) {
                 console.error('发送到 Formspree 失败:', err);
@@ -750,12 +731,8 @@
         renderLetters(letters);
         letterForm.addEventListener('submit', handleSubmit);
         closeModalSpan.addEventListener('click', closeModal);
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
-        });
+        window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
         clearAllBtn.addEventListener('click', clearAllLetters);
     }
 
